@@ -1,5 +1,10 @@
 // main process
 const { app, BrowserWindow, Notification } = require("electron");
+const path = require("path");
+
+// app.isPackaged === true -> PRODUCTION
+// app.isPackaged === false -> DEVELOPMENT
+const isDev = !app.isPackaged;
 
 // create app's window
 function createWindow() {
@@ -29,7 +34,14 @@ function createWindow() {
   win.loadFile("index.html");
 
   // open dev tools automaticaly
-  win.webContents.openDevTools();
+  isDev && win.webContents.openDevTools();
+}
+
+// Auto reload in DEVELOPMENT mode
+if (isDev) {
+  require("electron-reload")(__dirname, {
+    electron: path.join(__dirname, "node_modules", ".bin", "electron"),
+  });
 }
 
 // when app is ready - execute our function
@@ -38,7 +50,7 @@ app.whenReady().then(() => {
   createWindow();
 
   // ----------------------------
-  // console.log is working here only in terminal
+  // console.log is working here ONLY in terminal
   // const parsed = path.parse("/home/user/dir/file.txt");
   // console.log(parsed.base);
   // console.log(parsed.ext);
