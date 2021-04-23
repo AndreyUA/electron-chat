@@ -1,5 +1,5 @@
 // main process
-const { app, BrowserWindow, Notification } = require("electron");
+const { app, BrowserWindow, ipcMain, Notification } = require("electron");
 const path = require("path");
 
 // app.isPackaged === true -> PRODUCTION
@@ -20,13 +20,18 @@ function createWindow() {
       // contextIsolation: false,
 
       // safe options
+
       nodeIntegration: false,
       // worldSafeExecuteJavaScript will sanitize JS code
-      worldSafeExecuteJavaScript: true,
+      // worldSafeExecuteJavaScript: true,
       // contextIsolation is a feature that ensures that both
       // (preload scripts and electron internal logic run
       // in separate context)
       contextIsolation: true,
+      worldSafeExecuteJavaScript: true,
+
+      // PRELOAD
+      preload: path.join(__dirname, "preload.js"),
     },
   });
 
@@ -64,6 +69,19 @@ app.whenReady().then(() => {
   // });
   // notification.show();
   // ----------------------------
+});
+
+// create notification
+ipcMain.on("notify", (_, message) => {
+  new Notification({
+    title: "Notification",
+    body: message,
+  }).show();
+});
+
+// event for quit app
+ipcMain.on("app-quit", () => {
+  app.quit();
 });
 
 // .on() --> add events

@@ -5,7 +5,9 @@ const App = () => {
   const enhancedTitle = title + " - it's React app";
 
   const sendNotification = () => {
-    alert("hello world");
+    electron.notificationApi.sendNotification(
+      "My notification from Electron app"
+    );
   };
 
   return (
