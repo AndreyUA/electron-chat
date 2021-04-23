@@ -1,0 +1,21 @@
+{
+  "name": "electron-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "electron",
+    "nodejs",
+    "reactjs",
+    "javascript",
+    "realtime chat app"
+  ],
+  "author": "Andrey Zhygarev",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^12.0.5"
+  }
+}
