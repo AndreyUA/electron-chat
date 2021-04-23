@@ -9,7 +9,19 @@ function createWindow() {
     height: 800,
     backgroundColor: "white",
     webPreferences: {
-      nodeIntegration: true,
+      // With nodeIntegration: true we can use node modules in index.html
+      // Electron v 12 required contextIsolation: false to execute JS in html
+      // nodeIntegration: true,
+      // contextIsolation: false,
+
+      // safe options
+      nodeIntegration: false,
+      // worldSafeExecuteJavaScript will sanitize JS code
+      worldSafeExecuteJavaScript: true,
+      // contextIsolation is a feature that ensures that both
+      // (preload scripts and electron internal logic run
+      // in separate context)
+      contextIsolation: true,
     },
   });
 
@@ -25,11 +37,21 @@ function createWindow() {
 app.whenReady().then(() => {
   createWindow();
 
-  const notification = new Notification({
-    title: "Hello world",
-    body: "My test message",
-  });
-  notification.show();
+  // ----------------------------
+  // console.log is working here only in terminal
+  // const parsed = path.parse("/home/user/dir/file.txt");
+  // console.log(parsed.base);
+  // console.log(parsed.ext);
+  // ----------------------------
+
+  // ----------------------------
+  // Notifications in system
+  // const notification = new Notification({
+  //   title: "Hello world",
+  //   body: "My test message",
+  // });
+  // notification.show();
+  // ----------------------------
 });
 
 // .on() --> add events
