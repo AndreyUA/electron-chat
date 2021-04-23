@@ -1,5 +1,7 @@
 import React from "react";
 
+// 3 __dirname && 3 __filename
+
 // React component
 const App = () => {
   return (
