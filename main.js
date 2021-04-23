@@ -1,6 +1,6 @@
 // main process
 const { app, BrowserWindow, ipcMain, Notification } = require("electron");
-const path = require("path");
+const { resolve } = require("path");
 
 // app.isPackaged === true -> PRODUCTION
 // app.isPackaged === false -> DEVELOPMENT
@@ -31,7 +31,7 @@ function createWindow() {
       worldSafeExecuteJavaScript: true,
 
       // PRELOAD
-      preload: path.join(__dirname, "preload.js"),
+      preload: resolve(__dirname, "preload.js"),
     },
   });
 
@@ -45,7 +45,7 @@ function createWindow() {
 // Auto reload in DEVELOPMENT mode
 if (isDev) {
   require("electron-reload")(__dirname, {
-    electron: path.join(__dirname, "node_modules", ".bin", "electron"),
+    electron: resolve(__dirname, "node_modules", ".bin", "electron"),
   });
 }
 
