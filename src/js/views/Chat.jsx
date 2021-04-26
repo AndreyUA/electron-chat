@@ -1,23 +1,23 @@
 import React from "react";
 
 // Components
-import JoinedChatsList from "../components/JoinedChatsList.jsx";
-import AvailableChatsList from "../components/AvailableChatsList.jsx";
+import ChatUserList from "../components/ChatUsersList.jsx";
+import ChatMessageslist from "../components/ChatMessageslist.jsx";
 import ViewTitle from "../components/shared/ViewTitle.jsx";
 
 // React component
-const Home = () => {
+const Chat = () => {
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
-        <JoinedChatsList />
+        <ChatUserList />
       </div>
       <div className="col-9 fh">
         <ViewTitle />
-        <AvailableChatsList />
+        <ChatMessageslist />
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Chat;

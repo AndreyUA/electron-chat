@@ -6,6 +6,7 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 // Components
 import Home from "./views/Home.jsx";
+import Chat from "./views/Chat.jsx";
 import Settings from "./views/Settings.jsx";
 import Register from "./views/Register.jsx";
 import Login from "./views/Login.jsx";
@@ -21,6 +22,7 @@ const App = () => {
       <div className="content-wrapper">
         <Switch>
           <Route path="/settings" component={Settings} />
+          <Route path="/chat" component={Chat} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/" component={Home} />

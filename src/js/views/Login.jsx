@@ -1,5 +1,6 @@
 import React from "react";
 
+// React component
 const Login = () => {
   return (
     <div className="centered-view">

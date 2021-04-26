@@ -1,5 +1,6 @@
 import React from "react";
 
+// React component
 const Settings = () => {
   return (
     <div className="centered-view">

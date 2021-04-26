@@ -1,5 +1,6 @@
 import React from "react";
 
+// React component
 const Register = () => {
   return (
     <div className="centered-view">
