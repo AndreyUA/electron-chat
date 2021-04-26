@@ -1,11 +1,21 @@
 import * as api from "../../api/auth";
 
 export const register = (formData) => async (dispatch) => {
-  const response = await api.register(formData);
+  await api.register(formData);
 
-  debugger;
   dispatch({
     type: "AUTH_REGISTER_SUCCESS",
   });
-  return response;
+};
+
+export const listenToAuthChanges = () => (dispatch) => {
+  dispatch({ type: "AUTH_ON_INIT" });
+
+  api.onAuthStateChanges((authUser) => {
+    if (authUser) {
+      dispatch({ type: "AUTH_ON_SUCCESS" });
+    } else {
+      dispatch({ type: "AUTH_ON_ERROR" });
+    }
+  });
 };

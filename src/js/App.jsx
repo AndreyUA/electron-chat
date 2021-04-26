@@ -1,12 +1,13 @@
 // Progress
-// 4 __dirname && 6 __filename
+// 4 __dirname && 7 __filename
 
-import React from "react";
+import React, { useEffect } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
 // Redux
 import configueStore from "./store";
+import { listenToAuthChanges } from "./store//actions/auth";
 const store = configueStore();
 
 // Components
@@ -20,6 +21,10 @@ import NavBar from "./components/NavBar.jsx";
 
 // React component
 const App = () => {
+  useEffect(() => {
+    store.dispatch(listenToAuthChanges());
+  }, []);
+
   return (
     <Provider store={store}>
       <Router>
