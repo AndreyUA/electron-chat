@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // Components
 import JoinedChatsList from "../components/JoinedChatsList.jsx";
 import AvailableChatsList from "../components/AvailableChatsList.jsx";
 import ViewTitle from "../components/shared/ViewTitle.jsx";
 
+// db
+import { fetchChats } from "../api/chats";
+
 // React component
 const Home = () => {
+  useEffect(() => {
+    fetchChats().then((chats) => {
+      debugger;
+    });
+  }, []);
+
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">

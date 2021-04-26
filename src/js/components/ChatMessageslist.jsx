@@ -1,5 +1,6 @@
 import React from "react";
 
+// React component
 const ChatMessageslist = () => {
   return (
     <div className="chat-container">
