@@ -1,5 +1,5 @@
 // Progress
-// 3 __dirname && 14 __filename
+// 4 __dirname && 2 __filename
 
 import React from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
@@ -13,8 +13,7 @@ const store = configueStore();
 import Home from "./views/Home.jsx";
 import Chat from "./views/Chat.jsx";
 import Settings from "./views/Settings.jsx";
-import Register from "./views/Register.jsx";
-import Login from "./views/Login.jsx";
+import Welcome from "./views/Welcome.jsx";
 
 // Components
 import NavBar from "./components/NavBar.jsx";
@@ -27,11 +26,10 @@ const App = () => {
         <NavBar />
         <div className="content-wrapper">
           <Switch>
+            <Route path="/" component={Welcome} exact />
+            <Route path="/home" component={Home} />
             <Route path="/settings" component={Settings} />
             <Route path="/chat/:id" component={Chat} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/" component={Home} />
           </Switch>
         </div>
       </Router>
