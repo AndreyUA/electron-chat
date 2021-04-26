@@ -19,7 +19,7 @@ export const listenToAuthChanges = () => (dispatch) => {
 
   api.onAuthStateChanges((authUser) => {
     if (authUser) {
-      dispatch({ type: AUTH_ON_SUCCESS });
+      dispatch({ type: AUTH_ON_SUCCESS, payload: authUser });
     } else {
       dispatch({ type: AUTH_ON_ERROR });
     }
