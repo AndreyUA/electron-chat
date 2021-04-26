@@ -1,14 +1,22 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 
 // React component
 const RegisterForm = () => {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(JSON.stringify(data));
+  };
+
   return (
-    <form onSubmit={() => {}} className="centered-container-form">
+    <form onSubmit={handleSubmit(onSubmit)} className="centered-container-form">
       <div className="header">Create an account</div>
       <div className="form-container">
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
+            {...register("email")}
             type="email"
             className="form-control"
             name="email"
@@ -22,6 +30,7 @@ const RegisterForm = () => {
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
+            {...register("username")}
             type="text"
             name="username"
             className="form-control"
@@ -32,6 +41,7 @@ const RegisterForm = () => {
         <div className="form-group">
           <label htmlFor="avatar">Avatar</label>
           <input
+            {...register("avatar")}
             type="text"
             name="avatar"
             className="form-control"
@@ -42,6 +52,7 @@ const RegisterForm = () => {
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
+            {...register("password")}
             name="password"
             type="password"
             className="form-control"

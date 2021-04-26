@@ -1,15 +1,23 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 
 // React component
 const LoginForm = () => {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(JSON.stringify(data));
+  };
+
   return (
-    <form onSubmit={() => {}} className="centered-container-form">
+    <form onSubmit={handleSubmit(onSubmit)} className="centered-container-form">
       <div className="header">Welcome here!</div>
       <div className="subheader">Login and chat with other people!</div>
       <div className="form-container">
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
+            {...register("email", { required: true })}
             type="email"
             className="form-control"
             id="email"
@@ -23,6 +31,7 @@ const LoginForm = () => {
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
+            {...register("password", { required: true })}
             type="password"
             name="password"
             className="form-control"
