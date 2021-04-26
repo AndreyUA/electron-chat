@@ -27,7 +27,7 @@ const NavBar = () => {
         </div>
         <div className="chat-navbar-inner-right">
           <span className="logged-in-user">Hi User</span>
-          <Link to="/login" className="btn btn-outline-success ml-2">
+          <Link to="/" className="btn btn-outline-success ml-2">
             Login
           </Link>
           {user && (

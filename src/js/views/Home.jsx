@@ -6,7 +6,7 @@ import JoinedChatsList from "../components/JoinedChatsList.jsx";
 import AvailableChatsList from "../components/AvailableChatsList.jsx";
 import ViewTitle from "../components/shared/ViewTitle.jsx";
 
-import { fetchChats } from "../store//actions/chats";
+import { fetchChats } from "../store/actions/chats";
 
 // React component
 const Home = () => {

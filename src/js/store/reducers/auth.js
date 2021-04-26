@@ -1,4 +1,9 @@
-import { AUTH_ON_INIT, AUTH_ON_SUCCESS, AUTH_ON_ERROR } from "../actions/types";
+import {
+  AUTH_ON_INIT,
+  AUTH_ON_SUCCESS,
+  AUTH_ON_ERROR,
+  AUTH_LOGOUT_SUCCESS,
+} from "../actions/types";
 
 const initialState = {
   user: null,
@@ -25,8 +30,13 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isChecking: false,
       };
-    default: {
+    case AUTH_LOGOUT_SUCCESS:
+      return {
+        ...state,
+        user: null,
+        isChecking: false,
+      };
+    default:
       return state;
-    }
   }
 }

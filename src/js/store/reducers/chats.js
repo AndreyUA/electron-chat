@@ -13,8 +13,7 @@ export default function chatReducer(state = initialState, action) {
         ...state,
         items: payload,
       };
-    default: {
+    default:
       return state;
-    }
   }
 }

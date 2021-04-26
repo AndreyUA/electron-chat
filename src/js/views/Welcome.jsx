@@ -8,7 +8,7 @@ import RegisterForm from "../components/RegisterForm.jsx";
 
 // React component
 const Welcome = () => {
-  const { user, isChecking } = useSelector(({ auth }) => auth);
+  const { user, isChecking } = useSelector((state) => state.auth);
 
   const [isLoginView, setIsLoginView] = useState(true);
   const isLoginHandler = () => {
