@@ -2,7 +2,7 @@ import React from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 // Progress
-// 3 __dirname && 9 __filename
+// 3 __dirname && 11 __filename
 
 // Components
 import Home from "./views/Home.jsx";

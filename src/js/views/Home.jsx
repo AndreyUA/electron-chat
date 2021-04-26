@@ -11,9 +11,7 @@ import { fetchChats } from "../api/chats";
 // React component
 const Home = () => {
   useEffect(() => {
-    fetchChats().then((chats) => {
-      debugger;
-    });
+    fetchChats();
   }, []);
 
   return (
