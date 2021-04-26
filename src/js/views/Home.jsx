@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import JoinedChatsList from "../components/JoinedChatsList.jsx";
@@ -11,6 +11,8 @@ import { fetchChats } from "../store//actions/chats";
 // React component
 const Home = () => {
   const dispatch = useDispatch();
+  const chats = useSelector((state) => state.chats.items);
+
   useEffect(() => {
     dispatch(fetchChats());
   }, [dispatch]);
@@ -18,6 +20,7 @@ const Home = () => {
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
+        {JSON.stringify(chats)}
         <JoinedChatsList />
       </div>
       <div className="col-9 fh">
