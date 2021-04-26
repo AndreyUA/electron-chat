@@ -6,7 +6,7 @@ const initialState = {
 };
 
 export default function authReducer(state = initialState, action) {
-  const { type, payload } = action;
+  const { payload, type } = action;
 
   switch (type) {
     case AUTH_ON_INIT:
@@ -16,6 +16,7 @@ export default function authReducer(state = initialState, action) {
       };
     case AUTH_ON_SUCCESS:
       return {
+        ...state,
         user: payload,
         isChecking: false,
       };
@@ -24,9 +25,8 @@ export default function authReducer(state = initialState, action) {
         ...state,
         isChecking: false,
       };
-    default:
-      return {
-        state,
-      };
+    default: {
+      return state;
+    }
   }
 }

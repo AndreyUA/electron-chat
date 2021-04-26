@@ -4,6 +4,7 @@ import {
   AUTH_ON_INIT,
   AUTH_ON_SUCCESS,
   AUTH_ON_ERROR,
+  AUTH_LOGOUT_SUCCESS,
 } from "./types";
 
 export const register = (formData) => async (dispatch) => {
@@ -12,6 +13,12 @@ export const register = (formData) => async (dispatch) => {
   dispatch({
     type: AUTH_REGISTER_SUCCESS,
   });
+};
+
+export const logout = () => (dispatch) => {
+  api.logout();
+
+  dispatch({ type: AUTH_LOGOUT_SUCCESS });
 };
 
 export const listenToAuthChanges = () => (dispatch) => {
