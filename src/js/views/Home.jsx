@@ -20,12 +20,11 @@ const Home = () => {
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
-        {JSON.stringify(chats)}
-        <JoinedChatsList />
+        <JoinedChatsList chats={chats} />
       </div>
       <div className="col-9 fh">
         <ViewTitle text="Choose your channel" />
-        <AvailableChatsList />
+        <AvailableChatsList chats={chats} />
       </div>
     </div>
   );
