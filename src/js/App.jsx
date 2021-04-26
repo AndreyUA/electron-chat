@@ -22,7 +22,7 @@ const App = () => {
       <div className="content-wrapper">
         <Switch>
           <Route path="/settings" component={Settings} />
-          <Route path="/chat" component={Chat} />
+          <Route path="/chat/:id" component={Chat} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/" component={Home} />
