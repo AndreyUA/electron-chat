@@ -1,18 +1,12 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
-// Redux
-import { useSelector } from "react-redux";
-
 // React component
 const NavBar = () => {
   const history = useHistory();
 
-  const message = useSelector(({ message }) => message);
-
   return (
     <div className="chat-navbar">
-      {message}
       <nav className="chat-navbar-inner">
         <div className="chat-navbar-inner-left">
           <button
