@@ -1,12 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+
+// Redux
+import { register as registerUser } from "../store/actions/auth";
 
 // React component
 const RegisterForm = () => {
+  const dispatch = useDispatch();
+
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(JSON.stringify(data));
+  const onSubmit = (registerData) => {
+    dispatch(registerUser(registerData));
   };
 
   return (
