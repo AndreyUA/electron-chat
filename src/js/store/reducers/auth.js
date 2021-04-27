@@ -13,39 +13,42 @@ import {
 } from "../actions/types";
 
 const createAuthReducer = () => {
-  // TODO: reusable switch block
-  const loginReducer = (state = { error: null }, action) => {
-    const { payload, type } = action;
+  const createLoginReducer = () => {
+    const error = (state = null, action) => {
+      const { payload, type } = action;
 
-    switch (type) {
-      case AUTH_LOGIN_INIT:
-        return {
-          error: null,
-        };
-      case AUTH_LOGIN_ERROR:
-        return {
-          error: payload,
-        };
-      default:
-        return state;
-    }
+      switch (type) {
+        case AUTH_LOGIN_INIT:
+          return null;
+        case AUTH_LOGIN_ERROR:
+          return payload;
+        default:
+          return state;
+      }
+    };
+
+    return combineReducers({
+      error,
+    });
   };
 
-  const registerReducer = (state = { error: null }, action) => {
-    const { payload, type } = action;
+  const createRegisterReducer = () => {
+    const error = (state = null, action) => {
+      const { payload, type } = action;
 
-    switch (type) {
-      case AUTH_REGISTER_INIT:
-        return {
-          error: null,
-        };
-      case AUTH_REGISTER_ERROR:
-        return {
-          error: payload,
-        };
-      default:
-        return state;
-    }
+      switch (type) {
+        case AUTH_REGISTER_INIT:
+          return null;
+        case AUTH_REGISTER_ERROR:
+          return payload;
+        default:
+          return state;
+      }
+    };
+
+    return combineReducers({
+      error,
+    });
   };
 
   const user = (state = null, action) => {
@@ -85,8 +88,8 @@ const createAuthReducer = () => {
   return combineReducers({
     user,
     isChecking,
-    login: loginReducer,
-    register: registerReducer,
+    login: createLoginReducer(),
+    register: createRegisterReducer(),
   });
 };
 
