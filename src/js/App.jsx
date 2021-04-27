@@ -1,8 +1,13 @@
 // Progress
-// 4 __dirname && 19 __filename
+// 4 __dirname && 20 __filename
 
-import React, { useEffect } from "react";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import React, { useEffect, Children, cloneElement } from "react";
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { Provider, useDispatch, useSelector } from "react-redux";
 
 // Redux
@@ -20,7 +25,26 @@ import LoadingView from "./components//shared/LoadingView.jsx";
 // Components
 import NavBar from "./components/NavBar.jsx";
 
-// React component
+// React components
+
+const AuthRoute = ({ children, ...rest }) => {
+  const user = useSelector(({ auth }) => auth.user);
+  const onlyChild = Children.only(children);
+
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        user ? (
+          cloneElement(onlyChild, { ...rest, ...props })
+        ) : (
+          <Redirect to="/" />
+        )
+      }
+    />
+  );
+};
+
 const ChatApp = () => {
   const dispatch = useDispatch();
 
@@ -39,17 +63,24 @@ const ChatApp = () => {
       <NavBar />
       <div className="content-wrapper">
         <Switch>
-          <Route path="/" component={Welcome} exact />
-          <Route path="/home" component={Home} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/chat/:id" component={Chat} />
+          <AuthRoute path="/" exact>
+            <Welcome />
+          </AuthRoute>
+          <AuthRoute path="/home">
+            <Home />
+          </AuthRoute>
+          <AuthRoute path="/settings">
+            <Settings />
+          </AuthRoute>
+          <AuthRoute path="/chat/:id">
+            <Chat />
+          </AuthRoute>
         </Switch>
       </div>
     </Router>
   );
 };
 
-// React component
 const App = () => (
   <Provider store={store}>
     <ChatApp />
