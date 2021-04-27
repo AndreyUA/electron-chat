@@ -6,26 +6,32 @@ import {
   AUTH_ON_ERROR,
   AUTH_LOGOUT_SUCCESS,
   AUTH_LOGIN_SUCCESS,
+  AUTH_REGISTER_INIT,
+  AUTH_LOGIN_INIT,
 } from "./types";
 
-export const register = (formData) => async (dispatch) => {
-  await api.register(formData);
+export const register = (formData) => (dispatch) => {
+  dispatch({ type: AUTH_REGISTER_INIT });
 
-  dispatch({
-    type: AUTH_REGISTER_SUCCESS,
+  api.register(formData).then(() => {
+    dispatch({
+      type: AUTH_REGISTER_SUCCESS,
+    });
+  });
+};
+
+export const loginUser = (formData) => (dispatch) => {
+  dispatch({ type: AUTH_LOGIN_INIT });
+
+  api.login(formData).then(() => {
+    dispatch({ type: AUTH_LOGIN_SUCCESS });
   });
 };
 
 export const logout = () => (dispatch) => {
-  api.logout();
-
-  dispatch({ type: AUTH_LOGOUT_SUCCESS });
-};
-
-export const loginUser = (formData) => (dispatch) => {
-  api.login(formData);
-
-  dispatch({ type: AUTH_LOGIN_SUCCESS });
+  api.logout().then(() => {
+    dispatch({ type: AUTH_LOGOUT_SUCCESS });
+  });
 };
 
 export const listenToAuthChanges = () => (dispatch) => {

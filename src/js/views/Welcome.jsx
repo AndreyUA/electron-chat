@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 // Components
 import LoginForm from "../components/LoginForm.jsx";
 import RegisterForm from "../components/RegisterForm.jsx";
+import LoadingView from "../components/shared/LoadingView.jsx";
 
 // React component
 const Welcome = () => {
@@ -20,7 +21,7 @@ const Welcome = () => {
     : ["Already registered", "Login"];
 
   if (isChecking) {
-    return <h1>LOADING...</h1>;
+    return <LoadingView />;
   }
 
   if (user) {

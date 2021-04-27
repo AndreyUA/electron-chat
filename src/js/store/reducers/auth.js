@@ -3,6 +3,10 @@ import {
   AUTH_ON_SUCCESS,
   AUTH_ON_ERROR,
   AUTH_LOGOUT_SUCCESS,
+  AUTH_LOGIN_INIT,
+  AUTH_REGISTER_INIT,
+  AUTH_LOGIN_SUCCESS,
+  AUTH_REGISTER_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -14,6 +18,18 @@ export default function authReducer(state = initialState, action) {
   const { payload, type } = action;
 
   switch (type) {
+    case AUTH_LOGIN_INIT:
+    case AUTH_REGISTER_INIT:
+      return {
+        ...state,
+        isChecking: true,
+      };
+    case AUTH_LOGIN_SUCCESS:
+    case AUTH_REGISTER_SUCCESS:
+      return {
+        ...state,
+        isChecking: false,
+      };
     case AUTH_ON_INIT:
       return {
         ...state,
