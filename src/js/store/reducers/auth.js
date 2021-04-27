@@ -12,44 +12,19 @@ import {
   AUTH_REGISTER_ERROR,
 } from "../actions/types";
 
+// Reducer function
+import { createErrorReducer } from "./common";
+
 const createAuthReducer = () => {
-  const createLoginReducer = () => {
-    const error = (state = null, action) => {
-      const { payload, type } = action;
-
-      switch (type) {
-        case AUTH_LOGIN_INIT:
-          return null;
-        case AUTH_LOGIN_ERROR:
-          return payload;
-        default:
-          return state;
-      }
-    };
-
-    return combineReducers({
-      error,
+  const createLoginReducer = () =>
+    combineReducers({
+      error: createErrorReducer("LOGIN"),
     });
-  };
 
-  const createRegisterReducer = () => {
-    const error = (state = null, action) => {
-      const { payload, type } = action;
-
-      switch (type) {
-        case AUTH_REGISTER_INIT:
-          return null;
-        case AUTH_REGISTER_ERROR:
-          return payload;
-        default:
-          return state;
-      }
-    };
-
-    return combineReducers({
-      error,
+  const createRegisterReducer = () =>
+    combineReducers({
+      error: createErrorReducer("REGISTER"),
     });
-  };
 
   const user = (state = null, action) => {
     const { payload, type } = action;
