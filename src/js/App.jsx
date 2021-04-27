@@ -1,7 +1,7 @@
 // Progress
-// 4 __dirname && 20 __filename
+// 4 __dirname && 21 __filename
 
-import React, { useEffect, Children, cloneElement } from "react";
+import React, { useEffect } from "react";
 import {
   HashRouter as Router,
   Switch,
@@ -21,25 +21,17 @@ import Chat from "./views/Chat.jsx";
 import Settings from "./views/Settings.jsx";
 import Welcome from "./views/Welcome.jsx";
 import LoadingView from "./components//shared/LoadingView.jsx";
-
-// Components
 import NavBar from "./components/NavBar.jsx";
 
 // React components
-
-const AuthRoute = ({ children, ...rest }) => {
+const AuthRoute = ({ component: Component, ...rest }) => {
   const user = useSelector(({ auth }) => auth.user);
-  const onlyChild = Children.only(children);
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        user ? (
-          cloneElement(onlyChild, { ...rest, ...props })
-        ) : (
-          <Redirect to="/" />
-        )
+        user ? <Component {...props} /> : <Redirect to="/" />
       }
     />
   );
@@ -63,18 +55,10 @@ const ChatApp = () => {
       <NavBar />
       <div className="content-wrapper">
         <Switch>
-          <AuthRoute path="/" exact>
-            <Welcome />
-          </AuthRoute>
-          <AuthRoute path="/home">
-            <Home />
-          </AuthRoute>
-          <AuthRoute path="/settings">
-            <Settings />
-          </AuthRoute>
-          <AuthRoute path="/chat/:id">
-            <Chat />
-          </AuthRoute>
+          <Route path="/" exact component={Welcome} />
+          <AuthRoute path="/home" component={Home} />
+          <AuthRoute path="/settings" component={Settings} />
+          <AuthRoute path="/chat/:id" component={Chat} />
         </Switch>
       </div>
     </Router>
