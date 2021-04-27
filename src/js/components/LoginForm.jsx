@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Redux
 import { loginUser } from "../store/actions/auth";
@@ -10,6 +10,7 @@ const LoginForm = () => {
   const { register, handleSubmit } = useForm();
 
   const dispatch = useDispatch();
+  const error = useSelector(({ auth }) => auth.login.error);
 
   const onSubmit = (data) => {
     dispatch(loginUser(data));
@@ -23,7 +24,7 @@ const LoginForm = () => {
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
-            {...register("email", { required: true })}
+            {...register("email")}
             type="email"
             className="form-control"
             id="email"
@@ -37,14 +38,16 @@ const LoginForm = () => {
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
-            {...register("password", { required: true })}
+            {...register("password")}
             type="password"
             name="password"
             className="form-control"
             id="password"
           />
         </div>
-        {false && <div className="alert alert-danger small">Some error</div>}
+        {error && (
+          <div className="alert alert-danger small">{error.message}</div>
+        )}
         <button type="submit" className="btn btn-outline-primary">
           Login
         </button>

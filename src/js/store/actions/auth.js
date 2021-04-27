@@ -8,24 +8,30 @@ import {
   AUTH_LOGIN_SUCCESS,
   AUTH_REGISTER_INIT,
   AUTH_LOGIN_INIT,
+  AUTH_REGISTER_ERROR,
+  AUTH_LOGIN_ERROR,
 } from "./types";
 
 export const register = (formData) => (dispatch) => {
   dispatch({ type: AUTH_REGISTER_INIT });
 
-  api.register(formData).then(() => {
-    dispatch({
-      type: AUTH_REGISTER_SUCCESS,
-    });
-  });
+  api
+    .register(formData)
+    .then(() => {
+      dispatch({ type: AUTH_REGISTER_SUCCESS });
+    })
+    .catch((error) => dispatch({ type: AUTH_REGISTER_ERROR, payload: error }));
 };
 
 export const loginUser = (formData) => (dispatch) => {
   dispatch({ type: AUTH_LOGIN_INIT });
 
-  api.login(formData).then(() => {
-    dispatch({ type: AUTH_LOGIN_SUCCESS });
-  });
+  api
+    .login(formData)
+    .then(() => {
+      dispatch({ type: AUTH_LOGIN_SUCCESS });
+    })
+    .catch((error) => dispatch({ type: AUTH_LOGIN_ERROR, payload: error }));
 };
 
 export const logout = () => (dispatch) => {
