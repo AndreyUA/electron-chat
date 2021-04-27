@@ -37,9 +37,10 @@ export const logout = () => (dispatch) => {
 export const listenToAuthChanges = () => (dispatch) => {
   dispatch({ type: AUTH_ON_INIT });
 
-  api.onAuthStateChanges((authUser) => {
+  api.onAuthStateChanges(async (authUser) => {
     if (authUser) {
-      dispatch({ type: AUTH_ON_SUCCESS, payload: authUser });
+      const userProfile = await api.getUserProfile(authUser.uid);
+      dispatch({ type: AUTH_ON_SUCCESS, payload: userProfile });
     } else {
       dispatch({ type: AUTH_ON_ERROR });
     }
