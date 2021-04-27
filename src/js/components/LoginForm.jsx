@@ -5,16 +5,23 @@ import { useDispatch, useSelector } from "react-redux";
 // Redux
 import { loginUser } from "../store/actions/auth";
 
+// Components
+import LoadingView from "./shared/LoadingView.jsx";
+
 // React component
 const LoginForm = () => {
   const { register, handleSubmit } = useForm();
 
   const dispatch = useDispatch();
-  const error = useSelector(({ auth }) => auth.login.error);
+  const { error, isChecking } = useSelector(({ auth }) => auth.login);
 
   const onSubmit = (data) => {
     dispatch(loginUser(data));
   };
+
+  if (isChecking) {
+    return <LoadingView />;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="centered-container-form">

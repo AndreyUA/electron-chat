@@ -5,11 +5,10 @@ import { Redirect } from "react-router-dom";
 // Components
 import LoginForm from "../components/LoginForm.jsx";
 import RegisterForm from "../components/RegisterForm.jsx";
-import LoadingView from "../components/shared/LoadingView.jsx";
 
 // React component
 const Welcome = () => {
-  const { user, isChecking } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const [isLoginView, setIsLoginView] = useState(true);
   const isLoginHandler = () => {
@@ -19,10 +18,6 @@ const Welcome = () => {
   const optInText = isLoginView
     ? ["Need an account?", "Register"]
     : ["Already registered", "Login"];
-
-  if (isChecking) {
-    return <LoadingView />;
-  }
 
   if (user) {
     return <Redirect to="/home" />;

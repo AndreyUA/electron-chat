@@ -13,17 +13,19 @@ import {
 } from "../actions/types";
 
 // Reducer function
-import { createErrorReducer } from "./common";
+import { createErrorReducer, createIsFetchingReducer } from "./common";
 
 const createAuthReducer = () => {
   const createLoginReducer = () =>
     combineReducers({
       error: createErrorReducer("LOGIN"),
+      isChecking: createIsFetchingReducer("LOGIN"),
     });
 
   const createRegisterReducer = () =>
     combineReducers({
       error: createErrorReducer("REGISTER"),
+      isChecking: createIsFetchingReducer("REGISTER"),
     });
 
   const user = (state = null, action) => {
@@ -41,28 +43,9 @@ const createAuthReducer = () => {
     }
   };
 
-  const isChecking = (state = false, action) => {
-    const { type } = action;
-
-    switch (type) {
-      case AUTH_LOGIN_INIT:
-      case AUTH_REGISTER_INIT:
-      case AUTH_ON_INIT:
-        return true;
-      case AUTH_ON_SUCCESS:
-      case AUTH_ON_ERROR:
-      case AUTH_LOGOUT_SUCCESS:
-      case AUTH_LOGIN_ERROR:
-      case AUTH_REGISTER_ERROR:
-        return false;
-      default:
-        return state;
-    }
-  };
-
   return combineReducers({
     user,
-    isChecking,
+    isChecking: createIsFetchingReducer("ON"),
     login: createLoginReducer(),
     register: createRegisterReducer(),
   });

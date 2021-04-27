@@ -10,3 +10,20 @@ export const createErrorReducer = (actionType) => (state = null, action) => {
       return state;
   }
 };
+
+export const createIsFetchingReducer = (actionType) => (
+  state = false,
+  action
+) => {
+  const { type } = action;
+
+  switch (type) {
+    case `AUTH_${actionType}_INIT`:
+      return true;
+    case `AUTH_${actionType}_SUCCESS`:
+    case `AUTH_${actionType}_ERROR`:
+      return false;
+    default:
+      return state;
+  }
+};
