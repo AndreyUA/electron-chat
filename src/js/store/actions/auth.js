@@ -18,7 +18,7 @@ export const register = (formData) => (dispatch) => {
   api
     .register(formData)
     .then(() => {
-      dispatch({ type: AUTH_REGISTER_SUCCESS });
+      dispatch({ type: AUTH_REGISTER_SUCCESS, payload: {} });
     })
     .catch((error) => dispatch({ type: AUTH_REGISTER_ERROR, payload: error }));
 };
@@ -29,7 +29,7 @@ export const loginUser = (formData) => (dispatch) => {
   api
     .login(formData)
     .then(() => {
-      dispatch({ type: AUTH_LOGIN_SUCCESS });
+      dispatch({ type: AUTH_LOGIN_SUCCESS, payload: {} });
     })
     .catch((error) => dispatch({ type: AUTH_LOGIN_ERROR, payload: error }));
 };

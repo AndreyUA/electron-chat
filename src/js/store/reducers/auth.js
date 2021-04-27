@@ -6,10 +6,8 @@ import {
   AUTH_ON_SUCCESS,
   AUTH_ON_ERROR,
   AUTH_LOGOUT_SUCCESS,
-  AUTH_LOGIN_INIT,
-  AUTH_REGISTER_INIT,
-  AUTH_LOGIN_ERROR,
-  AUTH_REGISTER_ERROR,
+  AUTH_REGISTER_SUCCESS,
+  AUTH_LOGIN_SUCCESS,
 } from "../actions/types";
 
 // Reducer function
@@ -37,6 +35,8 @@ const createAuthReducer = () => {
       case AUTH_LOGOUT_SUCCESS:
         return null;
       case AUTH_ON_SUCCESS:
+      case AUTH_REGISTER_SUCCESS:
+      case AUTH_LOGIN_SUCCESS:
         return payload;
       default:
         return state;
