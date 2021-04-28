@@ -1,14 +1,24 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 // Components
 import { withBase } from "../layouts/Base.jsx";
 
+// Redux
+import { createChat } from "../store/actions/chats";
+
 const ChatCreate = () => {
+  const dispatch = useDispatch();
+  const { uid } = useSelector(({ auth }) => auth.user);
   const { register, handleSubmit } = useForm();
+  const history = useHistory();
 
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data));
+    // Not a good solution
+    // Better: use Redirect after creation
+    dispatch(createChat(data, uid)).then(() => history.push("/"));
   };
 
   return (
