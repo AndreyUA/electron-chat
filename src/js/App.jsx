@@ -12,7 +12,8 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 
 // Redux
 import configueStore from "./store";
-import { listenToAuthChanges } from "./store//actions/auth";
+import { listenToAuthChanges } from "./store/actions/auth";
+import { listenToConnectionChanges } from "./store/actions/app";
 const store = configueStore();
 
 // Components
@@ -41,20 +42,13 @@ const ChatApp = () => {
 
   const isChecking = useSelector(({ auth }) => auth.isChecking);
 
-  const alertOnlineStatus = () => {
-    window.alert(navigator.onLine ? "online" : "offline");
-  };
-
   useEffect(() => {
     const unsubFromAuth = dispatch(listenToAuthChanges());
-
-    window.addEventListener("online", alertOnlineStatus);
-    window.addEventListener("offline", alertOnlineStatus);
+    const unsubFromConnection = dispatch(listenToConnectionChanges());
 
     return () => {
       unsubFromAuth();
-      window.removeEventListener("online", alertOnlineStatus);
-      window.removeEventListener("offline", alertOnlineStatus);
+      unsubFromConnection();
     };
   }, [dispatch]);
 
