@@ -8,6 +8,8 @@ import {
   AUTH_LOGIN_INIT,
   AUTH_REGISTER_ERROR,
   AUTH_LOGIN_ERROR,
+  AUTH_REGISTER_SUCCESS,
+  AUTH_LOGIN_SUCCESS,
 } from "./types";
 
 export const register = (formData) => (dispatch) => {
@@ -15,6 +17,7 @@ export const register = (formData) => (dispatch) => {
 
   api
     .register(formData)
+    .then((user) => dispatch({ type: AUTH_REGISTER_SUCCESS, payload: user }))
     .catch((error) => dispatch({ type: AUTH_REGISTER_ERROR, payload: error }));
 };
 
@@ -23,6 +26,7 @@ export const loginUser = (formData) => (dispatch) => {
 
   api
     .login(formData)
+    .then((user) => dispatch({ type: AUTH_LOGIN_SUCCESS, payload: user }))
     .catch((error) => dispatch({ type: AUTH_LOGIN_ERROR, payload: error }));
 };
 

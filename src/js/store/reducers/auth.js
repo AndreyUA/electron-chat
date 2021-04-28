@@ -35,6 +35,8 @@ const createAuthReducer = () => {
       case AUTH_LOGOUT_SUCCESS:
         return null;
       case AUTH_ON_SUCCESS:
+      case AUTH_LOGIN_SUCCESS:
+      case AUTH_REGISTER_SUCCESS:
         return payload;
       default:
         return state;
