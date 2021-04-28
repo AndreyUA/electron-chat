@@ -1,8 +1,6 @@
 import { APP_IS_ONLINE, APP_IS_OFFLINE } from "./types";
 
 const onStatusChange = (dispatch) => () => {
-  debugger;
-
   const isOnline = navigator.onLine;
   const action = navigator.onLine
     ? { type: APP_IS_ONLINE, payload: isOnline }
