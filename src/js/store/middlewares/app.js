@@ -2,7 +2,7 @@ import { APP_IS_ONLINE, APP_IS_OFFLINE } from "../actions/types";
 
 export default (store) => (next) => (action) => {
   const state = store.getState();
-  debugger;
+  //   debugger;
   const { type } = action;
   switch (type) {
     case APP_IS_ONLINE:
