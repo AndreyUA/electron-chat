@@ -6,8 +6,11 @@ import chatReducer from "./reducers/chats";
 import authReducer from "./reducers/auth";
 import appReducer from "./reducers/app";
 
+// Middlewares
+import appMiddleware from "./middlewares/app";
+
 export default function configueStore() {
-  const middlewares = [reduxThunk];
+  const middlewares = [reduxThunk, appMiddleware];
 
   const store = createStore(
     combineReducers({

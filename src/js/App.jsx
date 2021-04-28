@@ -1,5 +1,5 @@
 // Progress
-// 5 __dirname && 4 __filename
+// 5 __dirname && 5 __filename
 
 import React, { useEffect } from "react";
 import {
@@ -62,8 +62,6 @@ const ChatApp = () => {
   if (isChecking) {
     return <LoadingView />;
   }
-
-  console.log(isOnline);
 
   return (
     <Router>
