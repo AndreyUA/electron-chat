@@ -21,7 +21,6 @@ import Chat from "./views/Chat.jsx";
 import Settings from "./views/Settings.jsx";
 import Welcome from "./views/Welcome.jsx";
 import LoadingView from "./components//shared/LoadingView.jsx";
-import NavBar from "./components/NavBar.jsx";
 
 // React components
 const AuthRoute = ({ component: Component, ...rest }) => {
@@ -52,7 +51,6 @@ const ChatApp = () => {
 
   return (
     <Router>
-      <NavBar />
       <div className="content-wrapper">
         <Switch>
           <Route path="/" exact component={Welcome} />

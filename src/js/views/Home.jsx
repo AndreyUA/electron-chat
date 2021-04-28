@@ -8,6 +8,9 @@ import ViewTitle from "../components/shared/ViewTitle.jsx";
 
 import { fetchChats } from "../store/actions/chats";
 
+// Components
+import Base from "../layouts/Base.jsx";
+
 // React component
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,15 +21,17 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div className="row no-gutters fh">
-      <div className="col-3 fh">
-        <JoinedChatsList chats={chats} />
+    <Base>
+      <div className="row no-gutters fh">
+        <div className="col-3 fh">
+          <JoinedChatsList chats={chats} />
+        </div>
+        <div className="col-9 fh">
+          <ViewTitle text="Choose your channel" />
+          <AvailableChatsList chats={chats} />
+        </div>
       </div>
-      <div className="col-9 fh">
-        <ViewTitle text="Choose your channel" />
-        <AvailableChatsList chats={chats} />
-      </div>
-    </div>
+    </Base>
   );
 };
 

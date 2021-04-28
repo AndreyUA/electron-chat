@@ -1,11 +1,9 @@
 import * as api from "../../api/auth";
 import {
-  AUTH_REGISTER_SUCCESS,
   AUTH_ON_INIT,
   AUTH_ON_SUCCESS,
   AUTH_ON_ERROR,
   AUTH_LOGOUT_SUCCESS,
-  AUTH_LOGIN_SUCCESS,
   AUTH_REGISTER_INIT,
   AUTH_LOGIN_INIT,
   AUTH_REGISTER_ERROR,
@@ -17,9 +15,6 @@ export const register = (formData) => (dispatch) => {
 
   api
     .register(formData)
-    .then(() => {
-      dispatch({ type: AUTH_REGISTER_SUCCESS, payload: {} });
-    })
     .catch((error) => dispatch({ type: AUTH_REGISTER_ERROR, payload: error }));
 };
 
@@ -28,9 +23,6 @@ export const loginUser = (formData) => (dispatch) => {
 
   api
     .login(formData)
-    .then(() => {
-      dispatch({ type: AUTH_LOGIN_SUCCESS, payload: {} });
-    })
     .catch((error) => dispatch({ type: AUTH_LOGIN_ERROR, payload: error }));
 };
 
