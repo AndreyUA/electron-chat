@@ -1,4 +1,7 @@
+// API
 import * as api from "../../api/chats";
+
+// Action types
 import { CHATS_FETCH_SUCCESS } from "./types";
 
 export function fetchChats() {

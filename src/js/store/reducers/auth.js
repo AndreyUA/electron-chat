@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-// Constants
+// Action types
 import {
   AUTH_ON_INIT,
   AUTH_ON_SUCCESS,

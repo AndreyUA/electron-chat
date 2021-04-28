@@ -1,3 +1,4 @@
+// Action types
 import { APP_IS_ONLINE, APP_IS_OFFLINE } from "./types";
 
 const onStatusChange = (dispatch) => () => {

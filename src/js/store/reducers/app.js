@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
+// Action types
 import { APP_IS_OFFLINE, APP_IS_ONLINE } from "../actions/types";
 
 const createAppReducer = () => {

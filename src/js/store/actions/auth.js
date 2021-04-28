@@ -1,4 +1,7 @@
+// API
 import * as api from "../../api/auth";
+
+// Action types
 import {
   AUTH_ON_INIT,
   AUTH_ON_SUCCESS,

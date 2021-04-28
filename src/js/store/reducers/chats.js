@@ -1,3 +1,4 @@
+// Action types
 import { CHATS_FETCH_SUCCESS } from "../actions/types";
 
 const initialState = {
