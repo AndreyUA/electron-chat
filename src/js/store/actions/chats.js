@@ -5,18 +5,55 @@ import * as api from "../../api/chats";
 import db from "../../db/firestore";
 
 // Action types
-import { CHATS_FETCH_SUCCESS, CHAT_CREATE_SUCCESS } from "./types";
+import {
+  CHATS_FETCH_SUCCESS,
+  CHAT_CREATE_SUCCESS,
+  CHATS_FETCH_INIT,
+} from "./types";
 
-export const fetchChats = () => {
-  return async function (dispatch) {
-    const response = await api.fetchChats();
-    dispatch({
-      type: CHATS_FETCH_SUCCESS,
-      payload: response,
-    });
+// export const fetchChats = () => {
+//   return async function (dispatch) {
+//     const response = await api.fetchChats();
+//     dispatch({
+//       type: CHATS_FETCH_SUCCESS,
+//       payload: response,
+//     });
 
-    return response;
-  };
+//     return response;
+//   };
+// };
+
+export const fetchChats = () => async (dispatch, getState) => {
+  const {
+    user: { uid },
+  } = getState().auth;
+
+  dispatch({
+    type: CHATS_FETCH_INIT,
+  });
+  const chats = await api.fetchChats();
+
+  chats.forEach(
+    (chat) => (chat.joinedUser = chat.joinedUser.map((user) => user.id))
+  );
+
+  const sortedChats = chats.reduce(
+    (accuChats, chat) => {
+      accuChats[chat.joinedUser.includes(uid) ? "joined" : "available"].push(
+        chat
+      );
+      return accuChats;
+    },
+    { joined: [], available: [] }
+  );
+
+  dispatch({
+    type: CHATS_FETCH_SUCCESS,
+    payload: { ...sortedChats },
+  });
+
+  debugger;
+  return sortedChats;
 };
 
 export const createChat = (formData, userId) => async (dispatch) => {
