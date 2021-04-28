@@ -1,5 +1,5 @@
 // Progress
-// 5 __dirname && 7 __filename
+// 6 __dirname && 2 __filename
 
 import React, { useEffect } from "react";
 import {
@@ -19,6 +19,7 @@ const store = configueStore();
 // Components
 import Home from "./views/Home.jsx";
 import Chat from "./views/Chat.jsx";
+import ChatCreate from "./views/ChatCreate.jsx";
 import Settings from "./views/Settings.jsx";
 import Welcome from "./views/Welcome.jsx";
 import LoadingView from "./components//shared/LoadingView.jsx";
@@ -71,6 +72,7 @@ const ChatApp = () => {
           <AuthRoute path="/home" component={Home} />
           <AuthRoute path="/settings" component={Settings} />
           <AuthRoute path="/chat/:id" component={Chat} />
+          <AuthRoute path="/chat-create" component={ChatCreate} />
         </Switch>
       </div>
     </Router>
