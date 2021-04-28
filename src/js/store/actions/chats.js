@@ -19,13 +19,18 @@ export const fetchChats = () => {
   };
 };
 
-export const createChat = (formData, userId) => (dispatch) => {
+export const createChat = (formData, userId) => async (dispatch) => {
   const newChat = { ...formData };
-  const userRef = db.doc(`profiles/${userId}`);
-  newChat.admin = userRef;
-  newChat.joinedUser = [userRef];
+  newChat.admin = db.doc(`profiles/${userId}`);
 
-  return api
-    .createChat(newChat)
-    .then(() => dispatch({ type: CHAT_CREATE_SUCCESS }));
+  const chatId = await api.createChat(newChat);
+
+  dispatch({ type: CHAT_CREATE_SUCCESS });
+
+  await api.joinChat(userId, chatId);
+
+  // TODO: implement this action type
+  dispatch({ type: "CHAT_JOIN_SUCCESS" });
+
+  return chatId;
 };
