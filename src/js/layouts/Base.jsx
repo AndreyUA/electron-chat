@@ -13,4 +13,14 @@ const Base = ({ children, ...props }) => {
   );
 };
 
+const getDisplayName = (Component) =>
+  Component.displayName || Component.name || "Component";
+
+export const withBase = (Component, config) => (props) => (
+  <>
+    <NavBar {...config} view={getDisplayName(Component)} />
+    <Component {...props} />
+  </>
+);
+
 export default Base;

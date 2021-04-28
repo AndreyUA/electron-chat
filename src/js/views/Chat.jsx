@@ -5,25 +5,23 @@ import { useParams } from "react-router-dom";
 import ChatUserList from "../components/ChatUsersList.jsx";
 import ChatMessageslist from "../components/ChatMessageslist.jsx";
 import ViewTitle from "../components/shared/ViewTitle.jsx";
-import Base from "../layouts/Base.jsx";
+import { withBase } from "../layouts/Base.jsx";
 
 // React component
 const Chat = () => {
   const { id } = useParams();
 
   return (
-    <Base canGoBack>
-      <div className="row no-gutters fh">
-        <div className="col-3 fh">
-          <ChatUserList />
-        </div>
-        <div className="col-9 fh">
-          <ViewTitle text={`Joined channel: ${id}`} />
-          <ChatMessageslist />
-        </div>
+    <div className="row no-gutters fh">
+      <div className="col-3 fh">
+        <ChatUserList />
       </div>
-    </Base>
+      <div className="col-9 fh">
+        <ViewTitle text={`Joined channel: ${id}`} />
+        <ChatMessageslist />
+      </div>
+    </div>
   );
 };
 
-export default Chat;
+export default withBase(Chat, { canGoBack: true });

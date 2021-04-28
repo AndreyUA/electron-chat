@@ -9,7 +9,7 @@ import ViewTitle from "../components/shared/ViewTitle.jsx";
 import { fetchChats } from "../store/actions/chats";
 
 // Components
-import Base from "../layouts/Base.jsx";
+import { withBase } from "../layouts/Base.jsx";
 
 // React component
 const Home = () => {
@@ -21,18 +21,16 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <Base>
-      <div className="row no-gutters fh">
-        <div className="col-3 fh">
-          <JoinedChatsList chats={chats} />
-        </div>
-        <div className="col-9 fh">
-          <ViewTitle text="Choose your channel" />
-          <AvailableChatsList chats={chats} />
-        </div>
+    <div className="row no-gutters fh">
+      <div className="col-3 fh">
+        <JoinedChatsList chats={chats} />
       </div>
-    </Base>
+      <div className="col-9 fh">
+        <ViewTitle text="Choose your channel" />
+        <AvailableChatsList chats={chats} />
+      </div>
+    </div>
   );
 };
 
-export default Home;
+export default withBase(Home);

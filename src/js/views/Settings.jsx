@@ -1,58 +1,50 @@
 import React from "react";
 
 // Components
-import Base from "../layouts/Base.jsx";
+import { withBase } from "../layouts/Base.jsx";
 
 // React component
 const Settings = () => {
   return (
-    <Base canGoBack>
-      <div className="centered-view">
-        <div className="centered-container">
-          <form className="centered-container-form">
-            <div className="header">Adjust application settings</div>
-            <div className="form-container">
-              <div className="my-3">
-                <div className="form-check">
-                  <input
-                    name="isDarkTheme"
-                    type="checkbox"
-                    className="form-check-input"
-                  />
-                  <label className="form-check-label">Dark Theme</label>
-                </div>
-                <div className="form-check">
-                  <input
-                    name="showNotifications"
-                    type="checkbox"
-                    className="form-check-input"
-                  />
-                  <label className="form-check-label">
-                    Enable Notification
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    name="playSound"
-                    type="checkbox"
-                    className="form-check-input"
-                  />
-                  <label className="form-check-label">Sound notification</label>
-                </div>
+    <div className="centered-view">
+      <div className="centered-container">
+        <form className="centered-container-form">
+          <div className="header">Adjust application settings</div>
+          <div className="form-container">
+            <div className="my-3">
+              <div className="form-check">
+                <input
+                  name="isDarkTheme"
+                  type="checkbox"
+                  className="form-check-input"
+                />
+                <label className="form-check-label">Dark Theme</label>
               </div>
-              <button
-                type="button"
-                onClick={() => {}}
-                className="btn btn-danger"
-              >
-                Quit App
-              </button>
+              <div className="form-check">
+                <input
+                  name="showNotifications"
+                  type="checkbox"
+                  className="form-check-input"
+                />
+                <label className="form-check-label">Enable Notification</label>
+              </div>
+              <div className="form-check">
+                <input
+                  name="playSound"
+                  type="checkbox"
+                  className="form-check-input"
+                />
+                <label className="form-check-label">Sound notification</label>
+              </div>
             </div>
-          </form>
-        </div>
+            <button type="button" onClick={() => {}} className="btn btn-danger">
+              Quit App
+            </button>
+          </div>
+        </form>
       </div>
-    </Base>
+    </div>
   );
 };
 
-export default Settings;
+export default withBase(Settings, { canGoBack: true });

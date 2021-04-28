@@ -9,7 +9,7 @@ import { logout } from "../store/actions/auth";
 import BackButton from "./shared/BackButton.jsx";
 
 // React component
-const NavBar = ({ canGoBack }) => {
+const NavBar = ({ canGoBack, view }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
@@ -18,9 +18,11 @@ const NavBar = ({ canGoBack }) => {
       <nav className="chat-navbar-inner">
         <div className="chat-navbar-inner-left">
           {canGoBack && <BackButton />}
-          <Link to="/settings" className="btn btn-outline-success ml-2">
-            Settings
-          </Link>
+          {view !== "Settings" && (
+            <Link to="/settings" className="btn btn-outline-success ml-2">
+              Settings
+            </Link>
+          )}
         </div>
         <div className="chat-navbar-inner-right">
           {user && (
