@@ -24,3 +24,9 @@ export const onConnectionChanged = (onConnection) =>
       const isConnected = snapshot?.val() ? snapshot?.val() : false;
       onConnection(isConnected);
     });
+
+// realtime db
+// https://firebase.google.com/docs/database/web/offline-capabilities
+
+// firestore
+// https://firebase.google.com/docs/firestore/solutions/presence
