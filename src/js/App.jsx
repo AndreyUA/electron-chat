@@ -42,20 +42,29 @@ const AuthRoute = ({ component: Component, ...rest }) => {
 const ChatApp = () => {
   const dispatch = useDispatch();
 
-  const isChecking = useSelector(({ auth }) => auth.isChecking);
+  const { user, isChecking } = useSelector((state) => state.auth);
   const isOnline = useSelector(({ app }) => app.isOnline);
 
   useEffect(() => {
     const unsubFromAuth = dispatch(listenToAuthChanges());
     const unsubFromConnection = dispatch(listenToConnectionChanges());
-    const unsubFromUserConnetcion = dispatch(checkUserConnection());
 
     return () => {
       unsubFromAuth();
       unsubFromConnection();
-      unsubFromUserConnetcion();
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    let unsubFromUserConnetcion;
+    if (user?.uid) {
+      unsubFromUserConnetcion = dispatch(checkUserConnection(user.uid));
+    }
+
+    return () => {
+      unsubFromUserConnetcion && unsubFromUserConnetcion();
+    };
+  }, [dispatch, user]);
 
   if (!isOnline) {
     return (
