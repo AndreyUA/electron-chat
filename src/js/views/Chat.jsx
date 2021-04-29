@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Redux
 import { subscribeToChat } from "../store/actions/chats";
@@ -14,6 +14,11 @@ import { withBase } from "../layouts/Base.jsx";
 // React component
 const Chat = () => {
   const dispatch = useDispatch();
+  const activeChat = useSelector((state) => {
+    debugger;
+
+    return state.chats.activeChats[id];
+  });
   const { id } = useParams();
 
   useEffect(() => {
