@@ -14,12 +14,8 @@ import { withBase } from "../layouts/Base.jsx";
 // React component
 const Chat = () => {
   const dispatch = useDispatch();
-  const activeChat = useSelector((state) => {
-    debugger;
-
-    return state.chats.activeChats[id];
-  });
   const { id } = useParams();
+  const activeChat = useSelector((state) => state.chats.activeChats[id]);
 
   useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
@@ -32,10 +28,10 @@ const Chat = () => {
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
-        <ChatUserList />
+        <ChatUserList users={activeChat?.joinedUser} />
       </div>
       <div className="col-9 fh">
-        <ViewTitle text={`Joined channel: ${id}`} />
+        <ViewTitle text={`Channel: ${activeChat?.name}`} />
         <ChatMessageslist />
       </div>
     </div>
