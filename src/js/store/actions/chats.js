@@ -46,7 +46,7 @@ export const fetchChats = () => async (dispatch, getState) => {
 
 export const joinChat = (chat, userId) => (dispatch) =>
   api.joinChat(userId, chat.id).then(() => {
-    dispatch({ type: CHAT_JOIN_SUCCESS });
+    dispatch({ type: CHAT_JOIN_SUCCESS, payload: chat });
   });
 
 export const createChat = (formData, userId) => async (dispatch) => {
@@ -59,8 +59,7 @@ export const createChat = (formData, userId) => async (dispatch) => {
 
   await api.joinChat(userId, chatId);
 
-  // TODO: implement this action type
-  dispatch({ type: CHAT_JOIN_SUCCESS });
+  dispatch({ type: CHAT_JOIN_SUCCESS, payload: { ...newChat, id: chatId } });
 
   return chatId;
 };
