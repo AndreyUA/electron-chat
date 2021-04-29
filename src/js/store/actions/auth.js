@@ -13,6 +13,7 @@ import {
   AUTH_LOGIN_ERROR,
   AUTH_REGISTER_SUCCESS,
   AUTH_LOGIN_SUCCESS,
+  CHATS_FETCH_RESTART,
 } from "./types";
 
 export const register = (formData) => (dispatch) => {
@@ -36,6 +37,7 @@ export const loginUser = (formData) => (dispatch) => {
 export const logout = () => (dispatch) => {
   api.logout().then(() => {
     dispatch({ type: AUTH_LOGOUT_SUCCESS });
+    dispatch({ type: CHATS_FETCH_RESTART });
   });
 };
 
