@@ -11,6 +11,7 @@ import ChatMessageslist from "../components/ChatMessageslist.jsx";
 import ViewTitle from "../components/shared/ViewTitle.jsx";
 import { withBase } from "../layouts/Base.jsx";
 import LoadingView from "../components/shared/LoadingView.jsx";
+import Messenger from "../components/Messenger";
 
 // React component
 const Chat = () => {
@@ -19,6 +20,10 @@ const Chat = () => {
   const peopleWatcher = useRef({});
   const activeChat = useSelector((state) => state.chats.activeChats[id]);
   const joinedUsers = activeChat?.joinedUser;
+
+  const sendMessage = (message) => {
+    console.log(message);
+  };
 
   const subscribeToJoinedUsers = useCallback(
     (jUsers) => {
@@ -64,6 +69,7 @@ const Chat = () => {
       <div className="col-9 fh">
         <ViewTitle text={`Channel: ${activeChat?.name}`} />
         <ChatMessageslist />
+        <Messenger onSubmit={sendMessage} />
       </div>
     </div>
   );
