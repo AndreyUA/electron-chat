@@ -11,18 +11,6 @@ import {
   CHATS_FETCH_INIT,
 } from "./types";
 
-// export const fetchChats = () => {
-//   return async function (dispatch) {
-//     const response = await api.fetchChats();
-//     dispatch({
-//       type: CHATS_FETCH_SUCCESS,
-//       payload: response,
-//     });
-
-//     return response;
-//   };
-// };
-
 export const fetchChats = () => async (dispatch, getState) => {
   const {
     user: { uid },
@@ -52,7 +40,6 @@ export const fetchChats = () => async (dispatch, getState) => {
     payload: { ...sortedChats },
   });
 
-  debugger;
   return sortedChats;
 };
 
