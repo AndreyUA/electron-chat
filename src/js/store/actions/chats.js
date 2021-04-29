@@ -11,6 +11,7 @@ import {
   CHATS_FETCH_INIT,
   CHAT_JOIN_SUCCESS,
   CHATS_SET_ACTIVE_CHAT,
+  CHATS_UPDATE_USER_STATE,
 } from "./types";
 
 export const fetchChats = () => async (dispatch, getState) => {
@@ -77,4 +78,9 @@ export const subscribeToChat = (chatId) => (dispatch) =>
     chat.joinedUser = joinedUsers;
 
     dispatch({ type: CHATS_SET_ACTIVE_CHAT, payload: chat });
+  });
+
+export const subscribeToProfile = (uid) => (dispatch) =>
+  api.subscribeToProfile(uid, (user) => {
+    dispatch({ type: CHATS_UPDATE_USER_STATE, payload: user });
   });

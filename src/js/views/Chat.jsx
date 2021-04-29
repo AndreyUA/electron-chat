@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // Redux
-import { subscribeToChat } from "../store/actions/chats";
+import { subscribeToChat, subscribeToProfile } from "../store/actions/chats";
 
 // Components
 import ChatUserList from "../components/ChatUsersList.jsx";
@@ -16,6 +16,13 @@ const Chat = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const activeChat = useSelector((state) => state.chats.activeChats[id]);
+  const joinedUsers = activeChat?.joinedUser;
+
+  const subscribeToJoinedUsers = (jUsers) => {
+    jUsers.forEach((user) => {
+      dispatch(subscribeToProfile(user.uid));
+    });
+  };
 
   useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
@@ -24,6 +31,10 @@ const Chat = () => {
       unsubFromChat();
     };
   }, []);
+
+  useEffect(() => {
+    joinedUsers && subscribeToJoinedUsers(joinedUsers);
+  }, [joinedUsers]);
 
   return (
     <div className="row no-gutters fh">
