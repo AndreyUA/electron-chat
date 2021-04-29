@@ -7,6 +7,7 @@ import {
   CHATS_FETCH_SUCCESS,
   CHAT_JOIN_SUCCESS,
   CHATS_SET_ACTIVE_CHAT,
+  CHATS_UPDATE_USER_STATE,
 } from "../actions/types";
 
 const createChatReducer = () => {
@@ -46,6 +47,23 @@ const createChatReducer = () => {
       CHATS_SET_ACTIVE_CHAT: (state, action) => {
         const { payload } = action;
         state[payload.id] = payload;
+      },
+      CHATS_UPDATE_USER_STATE: (state, action) => {
+        const {
+          payload: { user, chatId },
+        } = action;
+        const joinedUser = state[chatId].joinedUser;
+        const index = joinedUser.findIndex((jUser) => jUser.uid === user.uid);
+
+        if (index < 0) {
+          return state;
+        }
+
+        if (joinedUser[index].state === user.state) {
+          return state;
+        }
+
+        joinedUser[index].state = user.state;
       },
     }
   );
