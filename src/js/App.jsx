@@ -14,6 +14,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import configueStore from "./store";
 import { listenToAuthChanges } from "./store/actions/auth";
 import { listenToConnectionChanges } from "./store/actions/app";
+import { checkUserConnection } from "./store/actions/connection";
 const store = configueStore();
 
 // Components
@@ -47,10 +48,12 @@ const ChatApp = () => {
   useEffect(() => {
     const unsubFromAuth = dispatch(listenToAuthChanges());
     const unsubFromConnection = dispatch(listenToConnectionChanges());
+    const unsubFromUserConnetcion = dispatch(checkUserConnection());
 
     return () => {
       unsubFromAuth();
       unsubFromConnection();
+      unsubFromUserConnetcion();
     };
   }, [dispatch]);
 
