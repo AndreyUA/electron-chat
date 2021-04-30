@@ -13,6 +13,7 @@ import {
   CHATS_SET_ACTIVE_CHAT,
   CHATS_UPDATE_USER_STATE,
   CHAT_MESSAGE_SENT,
+  CHAT_SET_MESSAGES,
 } from "./types";
 
 export const fetchChats = () => async (dispatch, getState) => {
@@ -97,4 +98,17 @@ export const sendChatMessage = (message, chatId) => (dispatch, getState) => {
   return api
     .sendChatMessage(newMessage, chatId)
     .then(() => dispatch({ type: CHAT_MESSAGE_SENT }));
+};
+
+export const subscribeToMessages = (chatId) => (dispatch) => {
+  return api.subscribeToMessages(chatId, (messages) => {
+    const chatMessages = messages.map((message) => {
+      if (message.type === "added") {
+        return { id: message.doc.id, ...message.doc.data() };
+      }
+    });
+    dispatch({ type: CHAT_SET_MESSAGES, payload: { chatMessages, chatId } });
+
+    return chatMessages;
+  });
 };

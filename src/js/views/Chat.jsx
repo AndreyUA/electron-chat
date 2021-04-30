@@ -7,6 +7,7 @@ import {
   subscribeToChat,
   subscribeToProfile,
   sendChatMessage,
+  subscribeToMessages,
 } from "../store/actions/chats";
 
 // Components
@@ -53,6 +54,8 @@ const Chat = () => {
 
   useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
+
+    dispatch(subscribeToMessages(id));
 
     return () => {
       unsubFromChat();
