@@ -1,5 +1,6 @@
 // Utils
 import Notification from "../../utils/notifications";
+import Storage from "../../utils/storage";
 
 // Action types
 import {
@@ -21,17 +22,14 @@ export default (store) => (next) => (action) => {
     }
 
     case SETTINGS_UPDATE: {
-      const currentSettings = localStorage.getItem("app-settings");
-      const parsedCurrentSettings = currentSettings
-        ? JSON.parse(currentSettings)
-        : {};
+      const currentSettings = Storage.getItem("app-settings");
 
       const newSettings = {
-        ...parsedCurrentSettings,
+        ...currentSettings,
         [payload.settings]: payload.value,
       };
 
-      localStorage.setItem("app-settings", JSON.stringify(newSettings));
+      Storage.setItem("app-settings", newSettings);
     }
 
     case AUTH_LOGOUT_SUCCESS: {

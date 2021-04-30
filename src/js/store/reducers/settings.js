@@ -1,6 +1,9 @@
 // Action types
 import { SETTINGS_INITIAL_LOAD, SETTINGS_UPDATE } from "../actions/types";
 
+// Utils
+import Storage from "../../utils/storage";
+
 const initialState = {
   isDarkTheme: true,
   playSound: true,
@@ -17,13 +20,10 @@ export const settingsReducer = (state = initialState, action) => {
         [payload.settings]: payload.value,
       };
     case SETTINGS_INITIAL_LOAD:
-      const storedSettings = localStorage.getItem("app-settings");
-      const settings = storedSettings
-        ? JSON.parse(storedSettings)
-        : initialState;
+      const storedSettings = Storage.getItem("app-settings");
       return {
         ...state,
-        ...settings,
+        ...storedSettings,
       };
     default:
       return state;
