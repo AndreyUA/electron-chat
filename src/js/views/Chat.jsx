@@ -3,7 +3,11 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // Redux
-import { subscribeToChat, subscribeToProfile } from "../store/actions/chats";
+import {
+  subscribeToChat,
+  subscribeToProfile,
+  sendChatMessage,
+} from "../store/actions/chats";
 
 // Components
 import ChatUserList from "../components/ChatUsersList.jsx";
@@ -21,9 +25,12 @@ const Chat = () => {
   const activeChat = useSelector((state) => state.chats.activeChats[id]);
   const joinedUsers = activeChat?.joinedUser;
 
-  const sendMessage = (message) => {
-    console.log(message);
-  };
+  const sendMessage = useCallback(
+    (message) => {
+      dispatch(sendChatMessage(message, id));
+    },
+    [id]
+  );
 
   const subscribeToJoinedUsers = useCallback(
     (jUsers) => {

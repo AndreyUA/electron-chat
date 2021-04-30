@@ -12,6 +12,7 @@ import {
   CHAT_JOIN_SUCCESS,
   CHATS_SET_ACTIVE_CHAT,
   CHATS_UPDATE_USER_STATE,
+  CHAT_MESSAGE_SENT,
 } from "./types";
 
 export const fetchChats = () => async (dispatch, getState) => {
@@ -84,3 +85,16 @@ export const subscribeToProfile = (uid, chatId) => (dispatch) =>
   api.subscribeToProfile(uid, (user) => {
     dispatch({ type: CHATS_UPDATE_USER_STATE, payload: { user, chatId } });
   });
+
+export const sendChatMessage = (message, chatId) => (dispatch, getState) => {
+  const newMessage = { ...message };
+  const {
+    user: { uid },
+  } = getState().auth;
+  const userRef = db.doc(`profiles/${uid}`);
+  newMessage.author = userRef;
+
+  return api
+    .sendChatMessage(newMessage, chatId)
+    .then(() => dispatch({ type: CHAT_MESSAGE_SENT }));
+};

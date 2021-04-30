@@ -3,9 +3,6 @@ import firebase from "firebase/app";
 // DataBase
 import db from "../db/firestore.js";
 
-// const extractSnapshotData = (snapshot) =>
-//   snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
 export const fetchChats = async () => {
   const response = await db.collection("chats").get();
 
@@ -45,3 +42,11 @@ export const subscribeToProfile = (userId, onSubscribe) =>
     .collection("profiles")
     .doc(userId)
     .onSnapshot((snapshot) => onSubscribe(snapshot.data()));
+
+export const sendChatMessage = (message, chatId) =>
+  db
+    .collection("chats")
+    .doc(chatId)
+    .collection("messages")
+    .doc(message.timestamp)
+    .set(message);
