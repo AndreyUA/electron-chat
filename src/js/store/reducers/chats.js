@@ -68,10 +68,25 @@ const createChatReducer = () => {
     }
   );
 
+  const messages = createReducer(
+    {},
+    {
+      CHAT_SET_MESSAGES: (state, action) => {
+        const {
+          payload: { chatMessages, chatId },
+        } = action;
+        const prevMessages = state[chatId] || [];
+
+        state[chatId] = [...prevMessages, ...chatMessages];
+      },
+    }
+  );
+
   return combineReducers({
     joined,
     available,
     activeChats,
+    messages,
   });
 };
 

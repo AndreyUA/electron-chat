@@ -101,14 +101,15 @@ export const sendChatMessage = (message, chatId) => (dispatch, getState) => {
 };
 
 export const subscribeToMessages = (chatId) => (dispatch) => {
-  return api.subscribeToMessages(chatId, (messages) => {
-    const chatMessages = messages.map((message) => {
-      if (message.type === "added") {
-        return { id: message.doc.id, ...message.doc.data() };
+  return api.subscribeToMessages(chatId, (changes) => {
+    const chatMessages = changes.map((change) => {
+      if (change.type === "added") {
+        return { id: change.doc.id, ...change.doc.data() };
       }
     });
-    dispatch({ type: CHAT_SET_MESSAGES, payload: { chatMessages, chatId } });
-
-    return chatMessages;
+    return dispatch({
+      type: CHAT_SET_MESSAGES,
+      payload: { chatMessages, chatId },
+    });
   });
 };

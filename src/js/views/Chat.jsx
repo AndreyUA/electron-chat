@@ -24,6 +24,7 @@ const Chat = () => {
   const { id } = useParams();
   const peopleWatcher = useRef({});
   const activeChat = useSelector((state) => state.chats.activeChats[id]);
+  const messages = useSelector((state) => state.chats.messages[id]);
   const joinedUsers = activeChat?.joinedUser;
 
   const sendMessage = useCallback(
@@ -78,7 +79,7 @@ const Chat = () => {
       </div>
       <div className="col-9 fh">
         <ViewTitle text={`Channel: ${activeChat?.name}`} />
-        <ChatMessageslist />
+        <ChatMessageslist messages={messages} />
         <Messenger onSubmit={sendMessage} />
       </div>
     </div>
