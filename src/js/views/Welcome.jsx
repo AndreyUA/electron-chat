@@ -15,8 +15,6 @@ const Welcome = () => {
     setIsLoginView(!isLoginView);
   };
 
-  const entireState = useSelector((state) => state);
-
   const optInText = isLoginView
     ? ["Need an account?", "Register"]
     : ["Already registered", "Login"];

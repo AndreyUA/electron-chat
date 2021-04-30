@@ -8,6 +8,7 @@ const initialState = {
   isDarkTheme: true,
   playSound: true,
   showNotifications: true,
+  savable: true,
 };
 
 export const settingsReducer = (state = initialState, action) => {

@@ -24,6 +24,11 @@ export default function configueStore() {
   const rootReducer = (state, action) => {
     const { type } = action;
     if (type === AUTH_LOGOUT_SUCCESS) {
+      Object.keys(state).forEach((key) => {
+        if (state[key].savable) return;
+
+        state[key] = undefined;
+      });
       state = undefined;
     }
 

@@ -15,10 +15,14 @@ export default (store) => (next) => (action) => {
   switch (type) {
     case APP_IS_ONLINE:
     case APP_IS_OFFLINE: {
-      Notification.show({
-        title: "Connection status:",
-        body: payload ? "Online" : "Offline",
-      });
+      const { showNotifications } = store.getState().settings;
+
+      if (showNotifications) {
+        Notification.show({
+          title: "Connection status:",
+          body: payload ? "Online" : "Offline",
+        });
+      }
     }
 
     case SETTINGS_UPDATE: {
