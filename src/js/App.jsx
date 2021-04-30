@@ -1,5 +1,5 @@
 // Progress
-// 7 __dirname && 17 __filename
+// 7 __dirname && 18 __filename
 
 // TODO: api - connection
 
@@ -39,6 +39,16 @@ const AuthRoute = ({ component: Component, ...rest }) => {
         user ? <Component {...props} /> : <Redirect to="/" />
       }
     />
+  );
+};
+
+const ContentWrapper = ({ children }) => {
+  const { isDarkTheme } = useSelector((state) => state.settings);
+
+  return (
+    <div className={`content-wrapper ${isDarkTheme ? "dark" : "light"}`}>
+      {children}
+    </div>
   );
 };
 
@@ -82,7 +92,7 @@ const ChatApp = () => {
 
   return (
     <Router>
-      <div className="content-wrapper">
+      <ContentWrapper>
         <Switch>
           <Route path="/" exact component={Welcome} />
           <AuthRoute path="/home" component={Home} />
@@ -90,7 +100,7 @@ const ChatApp = () => {
           <AuthRoute path="/chat/:id" component={Chat} />
           <AuthRoute path="/chat-create" component={ChatCreate} />
         </Switch>
-      </div>
+      </ContentWrapper>
     </Router>
   );
 };
