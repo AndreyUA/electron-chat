@@ -14,6 +14,7 @@ import {
   CHATS_UPDATE_USER_STATE,
   CHAT_MESSAGE_SENT,
   CHAT_SET_MESSAGES,
+  CHATS_REGISTER_MESSAGE_SUB,
 } from "./types";
 
 export const fetchChats = () => async (dispatch, getState) => {
@@ -129,3 +130,11 @@ export const subscribeToMessages = (chatId) => (dispatch) => {
     });
   });
 };
+
+export const registerMessageSubscription = (chatId, messageSub) => ({
+  type: CHATS_REGISTER_MESSAGE_SUB,
+  payload: {
+    chatId,
+    messageSub,
+  },
+});

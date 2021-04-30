@@ -8,6 +8,7 @@ import {
   subscribeToProfile,
   sendChatMessage,
   subscribeToMessages,
+  registerMessageSubscription,
 } from "../store/actions/chats";
 
 // Components
@@ -25,6 +26,7 @@ const Chat = () => {
   const peopleWatcher = useRef({});
   const activeChat = useSelector((state) => state.chats.activeChats[id]);
   const messages = useSelector((state) => state.chats.messages[id]);
+  const messagesSub = useSelector((state) => state.chats.messagesSubs[id]);
   const joinedUsers = activeChat?.joinedUser;
 
   const sendMessage = useCallback(
@@ -56,7 +58,10 @@ const Chat = () => {
   useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
 
-    dispatch(subscribeToMessages(id));
+    if (!messagesSub) {
+      const unsubFromMessages = dispatch(subscribeToMessages(id));
+      dispatch(registerMessageSubscription(id, unsubFromMessages));
+    }
 
     return () => {
       unsubFromChat();

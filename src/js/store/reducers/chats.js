@@ -8,6 +8,7 @@ import {
   CHAT_JOIN_SUCCESS,
   CHATS_SET_ACTIVE_CHAT,
   CHATS_UPDATE_USER_STATE,
+  CHATS_REGISTER_MESSAGE_SUB,
 } from "../actions/types";
 
 const createChatReducer = () => {
@@ -82,11 +83,27 @@ const createChatReducer = () => {
     }
   );
 
+  const messagesSubs = (state = {}, action) => {
+    const { type, payload } = action;
+
+    switch (type) {
+      case CHATS_REGISTER_MESSAGE_SUB:
+        return {
+          ...state,
+          [payload.chatId]: payload.messageSub,
+        };
+
+      default:
+        return state;
+    }
+  };
+
   return combineReducers({
     joined,
     available,
     activeChats,
     messages,
+    messagesSubs,
   });
 };
 
