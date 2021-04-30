@@ -8,18 +8,27 @@ import appReducer from "./reducers/app";
 
 // Middlewares
 import appMiddleware from "./middlewares/app";
+import { AUTH_LOGOUT_SUCCESS } from "./actions/types";
 
 export default function configueStore() {
   const middlewares = [reduxThunk, appMiddleware];
 
-  const store = createStore(
-    combineReducers({
-      chats: chatReducer,
-      auth: authReducer,
-      app: appReducer,
-    }),
-    applyMiddleware(...middlewares)
-  );
+  const mainReducer = combineReducers({
+    chats: chatReducer,
+    auth: authReducer,
+    app: appReducer,
+  });
+
+  const rootReducer = (state, action) => {
+    const { type } = action;
+    if (type === AUTH_LOGOUT_SUCCESS) {
+      state = undefined;
+    }
+
+    return mainReducer(state, action);
+  };
+
+  const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
   return store;
 }
