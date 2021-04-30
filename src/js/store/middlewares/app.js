@@ -6,6 +6,7 @@ import {
   APP_IS_ONLINE,
   APP_IS_OFFLINE,
   AUTH_LOGOUT_SUCCESS,
+  SETTINGS_UPDATE,
 } from "../actions/types";
 
 export default (store) => (next) => (action) => {
@@ -18,6 +19,21 @@ export default (store) => (next) => (action) => {
         body: payload ? "Online" : "Offline",
       });
     }
+
+    case SETTINGS_UPDATE: {
+      const currentSettings = localStorage.getItem("app-settings");
+      const parsedCurrentSettings = currentSettings
+        ? JSON.parse(currentSettings)
+        : {};
+
+      const newSettings = {
+        ...parsedCurrentSettings,
+        [payload.settings]: payload.value,
+      };
+
+      localStorage.setItem("app-settings", JSON.stringify(newSettings));
+    }
+
     case AUTH_LOGOUT_SUCCESS: {
       const { messagesSubs } = store.getState().chats;
 

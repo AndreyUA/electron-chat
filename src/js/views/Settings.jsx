@@ -41,7 +41,7 @@ const Settings = () => {
                   name="showNotifications"
                   type="checkbox"
                   className="form-check-input"
-                  checked={playSound}
+                  checked={showNotifications}
                 />
                 <label className="form-check-label">Enable Notification</label>
               </div>
@@ -51,7 +51,7 @@ const Settings = () => {
                   name="playSound"
                   type="checkbox"
                   className="form-check-input"
-                  checked={showNotifications}
+                  checked={playSound}
                 />
                 <label className="form-check-label">Sound notification</label>
               </div>
