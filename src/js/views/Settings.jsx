@@ -1,10 +1,19 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 // Components
 import { withBase } from "../layouts/Base.jsx";
 
+// Redux
+import { updateSettings } from "../store/actions/settings";
+
 // React component
 const Settings = () => {
+  const dispatch = useDispatch();
+  const handleChange = ({ target: { checked, name } }) => {
+    dispatch(updateSettings(name, checked));
+  };
+
   return (
     <div className="centered-view">
       <div className="centered-container">
@@ -14,6 +23,7 @@ const Settings = () => {
             <div className="my-3">
               <div className="form-check">
                 <input
+                  onChange={handleChange}
                   name="isDarkTheme"
                   type="checkbox"
                   className="form-check-input"
@@ -22,6 +32,7 @@ const Settings = () => {
               </div>
               <div className="form-check">
                 <input
+                  onChange={handleChange}
                   name="showNotifications"
                   type="checkbox"
                   className="form-check-input"
@@ -30,6 +41,7 @@ const Settings = () => {
               </div>
               <div className="form-check">
                 <input
+                  onChange={handleChange}
                   name="playSound"
                   type="checkbox"
                   className="form-check-input"
