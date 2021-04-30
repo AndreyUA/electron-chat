@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 // Utils
@@ -6,15 +6,20 @@ import { formatTimeAgo } from "../utils/time";
 
 // React component
 const ChatMessageslist = ({ messages = [] }) => {
+  const ulRef = useRef(null);
   const { uid } = useSelector((state) => state.auth.user);
 
   const isAuthorIf = useCallback((message) =>
     message?.author.uid === uid ? "chat-right" : "chat-left"
   );
 
+  useEffect(() => {
+    ulRef.current.scrollIntoView(false);
+  });
+
   return (
     <div className="chat-container">
-      <ul className="chat-box chatContainerScroll">
+      <ul ref={ulRef} className="chat-box chatContainerScroll">
         {messages.map((message) => (
           <li key={message.id} className={isAuthorIf(message)}>
             <div className="chat-avatar">
