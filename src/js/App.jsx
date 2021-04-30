@@ -17,6 +17,7 @@ import configueStore from "./store";
 import { listenToAuthChanges } from "./store/actions/auth";
 import { listenToConnectionChanges } from "./store/actions/app";
 import { checkUserConnection } from "./store/actions/connection";
+import { loadInitialSettings } from "./store/actions/settings";
 const store = configueStore();
 
 // Components
@@ -48,6 +49,7 @@ const ChatApp = () => {
   const isOnline = useSelector(({ app }) => app.isOnline);
 
   useEffect(() => {
+    dispatch(loadInitialSettings());
     const unsubFromAuth = dispatch(listenToAuthChanges());
     const unsubFromConnection = dispatch(listenToConnectionChanges());
 

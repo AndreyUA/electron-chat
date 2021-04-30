@@ -1,5 +1,5 @@
 // Action types
-import { SETTINGS_UPDATE } from "../actions/types";
+import { SETTINGS_INITIAL_LOAD, SETTINGS_UPDATE } from "../actions/types";
 
 const initialState = {
   isDarkTheme: true,
@@ -15,6 +15,15 @@ export const settingsReducer = (state = initialState, action) => {
       return {
         ...state,
         [payload.settings]: payload.value,
+      };
+    case SETTINGS_INITIAL_LOAD:
+      const storedSettings = localStorage.getItem("app-settings");
+      const settings = storedSettings
+        ? JSON.parse(storedSettings)
+        : initialState;
+      return {
+        ...state,
+        ...settings,
       };
     default:
       return state;
