@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Components
 import { withBase } from "../layouts/Base.jsx";
@@ -10,6 +10,10 @@ import { updateSettings } from "../store/actions/settings";
 // React component
 const Settings = () => {
   const dispatch = useDispatch();
+  const { isDarkTheme, playSound, showNotifications } = useSelector(
+    (state) => state.settings
+  );
+
   const handleChange = ({ target: { checked, name } }) => {
     dispatch(updateSettings(name, checked));
   };
@@ -27,6 +31,7 @@ const Settings = () => {
                   name="isDarkTheme"
                   type="checkbox"
                   className="form-check-input"
+                  checked={isDarkTheme}
                 />
                 <label className="form-check-label">Dark Theme</label>
               </div>
@@ -36,6 +41,7 @@ const Settings = () => {
                   name="showNotifications"
                   type="checkbox"
                   className="form-check-input"
+                  checked={playSound}
                 />
                 <label className="form-check-label">Enable Notification</label>
               </div>
@@ -45,6 +51,7 @@ const Settings = () => {
                   name="playSound"
                   type="checkbox"
                   className="form-check-input"
+                  checked={showNotifications}
                 />
                 <label className="form-check-label">Sound notification</label>
               </div>
