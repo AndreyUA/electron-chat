@@ -1,6 +1,8 @@
 // Progress
 // 7 __dirname && 3 __filename
 
+// TODO: api - connection
+
 import React, { useEffect } from "react";
 import {
   HashRouter as Router,

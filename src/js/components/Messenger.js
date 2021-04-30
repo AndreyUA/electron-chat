@@ -1,14 +1,28 @@
 import React, { useState } from "react";
 
+// Utils
+import { createTimestamp } from "../utils/time";
+
 // React component
 const Messenger = ({ onSubmit }) => {
   const [value, setValue] = useState("");
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      onSubmit(value);
+      sendMessage();
       setValue("");
     }
+  };
+
+  const sendMessage = () => {
+    if (value.trim() === "") return;
+
+    const message = {
+      content: value.trim(),
+      timestamp: createTimestamp(),
+    };
+
+    onSubmit(message);
   };
 
   return (
