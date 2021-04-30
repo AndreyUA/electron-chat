@@ -1,5 +1,5 @@
 // main process
-const { app, BrowserWindow, ipcMain, Notification } = require("electron");
+const { app, BrowserWindow, ipcMain, Notification, Menu } = require("electron");
 const { resolve } = require("path");
 
 // app.isPackaged === true -> PRODUCTION
@@ -12,7 +12,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
-    backgroundColor: "white",
+    backgroundColor: "#6e707e",
     webPreferences: {
       // With nodeIntegration: true we can use node modules in index.html
       // Electron v 12 required contextIsolation: false to execute JS in html
@@ -52,6 +52,9 @@ if (isDev) {
 // when app is ready - execute our function
 // createWindow - for window creation
 app.whenReady().then(() => {
+  const template = require("./utils/Menu").createTemplate(app);
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
   createWindow();
 
   // ----------------------------
