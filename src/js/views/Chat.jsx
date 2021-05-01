@@ -24,6 +24,7 @@ const Chat = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const peopleWatcher = useRef({});
+  const ref = useRef(null);
   const activeChat = useSelector((state) => state.chats.activeChats[id]);
   const messages = useSelector((state) => state.chats.messages[id]);
   const messagesSub = useSelector((state) => state.chats.messagesSubs[id]);
@@ -56,6 +57,10 @@ const Chat = () => {
   }, [peopleWatcher.current]);
 
   useEffect(() => {
+    if (ref.current) ref.current.scrollIntoView(false);
+  });
+
+  useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
 
     if (!messagesSub) {
@@ -84,7 +89,7 @@ const Chat = () => {
       </div>
       <div className="col-9 fh">
         <ViewTitle text={`Channel: ${activeChat?.name}`} />
-        <ChatMessageslist messages={messages} />
+        <ChatMessageslist messages={messages} ref={ref} />
         <Messenger onSubmit={sendMessage} />
       </div>
     </div>
