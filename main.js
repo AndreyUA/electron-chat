@@ -24,6 +24,8 @@ function createWindow() {
     width: 1200,
     height: 800,
     backgroundColor: "#6e707e",
+    // hide window
+    show: false,
     webPreferences: {
       // With nodeIntegration: true we can use node modules in index.html
       // Electron v 12 required contextIsolation: false to execute JS in html
@@ -51,14 +53,18 @@ function createWindow() {
 
   // open dev tools automaticaly
   isDev && win.webContents.openDevTools();
+
+  return win;
 }
 
-// create second window
-function createSecondWindow() {
+// create starting window
+function createSplashWindow() {
   const win = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 400,
+    height: 200,
     backgroundColor: "#6e707e",
+    frame: false,
+    transparent: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -67,7 +73,9 @@ function createSecondWindow() {
   });
 
   // load html file
-  win.loadFile("second.html");
+  win.loadFile("splash.html");
+
+  return win;
 }
 
 // Auto reload in DEVELOPMENT mode
@@ -94,8 +102,13 @@ app.whenReady().then(() => {
   tray = new Tray(trayIcon);
   tray.setContextMenu(menu);
 
-  createWindow();
-  createSecondWindow();
+  const mainApp = createWindow();
+  const splash = createSplashWindow();
+
+  mainApp.once("ready-to-show", () => {
+    splash.destroy();
+    mainApp.show();
+  });
 
   // ----------------------------
   // console.log is working here ONLY in terminal
