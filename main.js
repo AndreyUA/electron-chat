@@ -42,6 +42,23 @@ function createWindow() {
   isDev && win.webContents.openDevTools();
 }
 
+// create second window
+function createSecondWindow() {
+  const win = new BrowserWindow({
+    width: 1200,
+    height: 800,
+    backgroundColor: "#6e707e",
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      worldSafeExecuteJavaScript: true,
+    },
+  });
+
+  // load html file
+  win.loadFile("second.html");
+}
+
 // Auto reload in DEVELOPMENT mode
 if (isDev) {
   require("electron-reload")(__dirname, {
@@ -56,6 +73,7 @@ app.whenReady().then(() => {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
   createWindow();
+  createSecondWindow();
 
   // ----------------------------
   // console.log is working here ONLY in terminal
