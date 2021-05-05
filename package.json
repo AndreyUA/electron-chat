@@ -1,12 +1,17 @@
 {
   "name": "electron-chat",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is simple chat application",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "watch": "webpack --config webpack.common.js --watch",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "make:linux": "electron-builder --linux",
+    "make:macos": "electron-builder --mac",
+    "make:win": "electron-builder --win --x64"
   },
   "keywords": [
     "electron",
@@ -17,10 +22,58 @@
   ],
   "author": "Andrey Zhygarev",
   "license": "ISC",
+  "build": {
+    "productName": "Electron Chat",
+    "appId": "com.andrey-zhygarev.chatapp",
+    "files": [
+      "build/**/*",
+      "assets/**/*",
+      "utils/**/*",
+      "index.html",
+      "splash.html",
+      "main.js",
+      "preload.js"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "icon": "assets/images/js-big.png",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 810,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "icon": "assets/images/js-big.png",
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "AppImage"
+      ],
+      "category": "Development"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.13.16",
     "dotenv-webpack": "^7.0.2",
     "electron": "^12.0.5",
+    "electron-builder": "^22.11.1",
     "electron-reload": "^1.5.0",
     "webpack-merge": "^5.7.3"
   },
