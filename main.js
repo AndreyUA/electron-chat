@@ -2,6 +2,9 @@
 const { app, BrowserWindow, ipcMain, Notification, Menu } = require("electron");
 const { resolve } = require("path");
 
+// Image file
+const dockIcon = resolve(__dirname, "assets", "images", "js-big.png");
+
 // app.isPackaged === true -> PRODUCTION
 // app.isPackaged === false -> DEVELOPMENT
 const isDev = !app.isPackaged;
@@ -64,6 +67,11 @@ if (isDev) {
   require("electron-reload")(__dirname, {
     electron: resolve(__dirname, "node_modules", ".bin", "electron"),
   });
+}
+
+// Set icon for macOS
+if (process.platform === "darwin") {
+  app.dock.setIcon(dockIcon);
 }
 
 // when app is ready - execute our function
