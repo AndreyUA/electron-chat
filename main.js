@@ -1,9 +1,17 @@
 // main process
-const { app, BrowserWindow, ipcMain, Notification, Menu } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  Notification,
+  Menu,
+  Tray,
+} = require("electron");
 const { resolve } = require("path");
 
 // Image file
-const dockIcon = resolve(__dirname, "assets", "images", "js-big.png");
+const dockIcon = resolve(__dirname, "assets", "images", "js-big.png"); // icon for macOS
+const trayIcon = resolve(__dirname, "assets", "images", "js-small.png"); // icon for tray
 
 // app.isPackaged === true -> PRODUCTION
 // app.isPackaged === false -> DEVELOPMENT
@@ -74,12 +82,18 @@ if (process.platform === "darwin") {
   app.dock.setIcon(dockIcon);
 }
 
+let tray = null;
+
 // when app is ready - execute our function
 // createWindow - for window creation
 app.whenReady().then(() => {
   const template = require("./utils/Menu").createTemplate(app);
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
+
+  tray = new Tray(trayIcon);
+  tray.setContextMenu(menu);
+
   createWindow();
   createSecondWindow();
 
