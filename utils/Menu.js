@@ -17,8 +17,7 @@ exports.createTemplate = (app) => {
       ],
     },
     {
-      // STOP HERE
-      // 8-30
+      // Name of menu point
       label: "Edit",
       submenu: [
         {
@@ -32,11 +31,15 @@ exports.createTemplate = (app) => {
       ],
     },
     {
+      // Name of menu point
       label: "View",
       submenu: [
         {
+          // Name
           label: "Reload",
+          // Hotkey
           accelerator: "CmdOrCtrl+R",
+          // Function for execute
           click: (_, focusedWindow) => {
             if (focusedWindow) {
               // on reload, start fresh and close any old
@@ -44,6 +47,7 @@ exports.createTemplate = (app) => {
               if (focusedWindow.id === 1) {
                 // console.log('in FOCUS!');
                 const { BrowserWindow } = require("electron");
+                // Close all other windows
                 BrowserWindow.getAllWindows().forEach((win) => {
                   if (win.id > 1) {
                     // console.log('Closing!');
@@ -56,7 +60,9 @@ exports.createTemplate = (app) => {
           },
         },
         {
+          // Name
           label: "Toggle Full Screen",
+          // Hotkey
           accelerator: (() => {
             if (process.platform === "darwin") {
               return "Ctrl+Command+F";
@@ -64,6 +70,7 @@ exports.createTemplate = (app) => {
               return "F11";
             }
           })(),
+          // Function for execute
           click: (_, focusedWindow) => {
             if (focusedWindow) {
               focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
@@ -71,7 +78,9 @@ exports.createTemplate = (app) => {
           },
         },
         {
+          // Name
           label: "Toggle Developer Tools",
+          // Hotkey
           accelerator: (() => {
             if (process.platform === "darwin") {
               return "Alt+Command+I";
@@ -79,26 +88,36 @@ exports.createTemplate = (app) => {
               return "Ctrl+Shift+I";
             }
           })(),
+          // Function for execute
           click: (_, focusedWindow) => {
             if (focusedWindow) {
               focusedWindow.toggleDevTools();
             }
           },
         },
+        // Horizontal line
         {
           type: "separator",
         },
         {
+          // Name
           label: "App Menu Demo",
+          // Hotkey
+          accelerator: "F2",
+          // Function for execute
           click: function (_, focusedWindow) {
             if (focusedWindow) {
               const options = {
                 type: "info",
+                // Window title
                 title: "Application Menu Demo",
-                buttons: ["Ok"],
+                // Buttons
+                buttons: ["Ok", "Cancel"],
+                // Text of window
                 message:
                   "This demo is for the Menu section, showing how to create a clickable menu item in the application menu.",
               };
+              const { dialog } = require("electron");
               dialog.showMessageBox(focusedWindow, options);
             }
           },
@@ -112,7 +131,7 @@ exports.createTemplate = (app) => {
         {
           label: "Minimize",
           accelerator: "CmdOrCtrl+M",
-          // nooooop
+          // Role of button
           role: "minimize",
         },
         {
@@ -126,7 +145,9 @@ exports.createTemplate = (app) => {
         {
           label: "Reopen Window",
           accelerator: "CmdOrCtrl+Shift+T",
+          // Active or not (true / false)
           enabled: false,
+          // app.on(event) ---> from main.js
           click: () => {
             app.emit("activate");
           },
@@ -134,6 +155,7 @@ exports.createTemplate = (app) => {
       ],
     },
     {
+      // Open the website of electron
       label: "Help",
       role: "help",
       submenu: [
