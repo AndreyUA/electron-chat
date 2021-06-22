@@ -1,6 +1,17 @@
 // main process
-const { app, BrowserWindow, ipcMain, Notification } = require("electron");
-const path = require("path");
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  Notification,
+  Menu,
+  Tray,
+} = require("electron");
+const { resolve } = require("path");
+
+// Image file
+const dockIcon = resolve(__dirname, "assets", "images", "js-big.png"); // icon for macOS
+const trayIcon = resolve(__dirname, "assets", "images", "js-small.png"); // icon for tray
 
 // app.isPackaged === true -> PRODUCTION
 // app.isPackaged === false -> DEVELOPMENT
@@ -12,7 +23,9 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
-    backgroundColor: "white",
+    backgroundColor: "#6e707e",
+    // hide window
+    show: false,
     webPreferences: {
       // With nodeIntegration: true we can use node modules in index.html
       // Electron v 12 required contextIsolation: false to execute JS in html
@@ -31,7 +44,7 @@ function createWindow() {
       worldSafeExecuteJavaScript: true,
 
       // PRELOAD
-      preload: path.join(__dirname, "preload.js"),
+      preload: resolve(__dirname, "preload.js"),
     },
   });
 
@@ -40,19 +53,61 @@ function createWindow() {
 
   // open dev tools automaticaly
   isDev && win.webContents.openDevTools();
+
+  return win;
+}
+
+// create starting window
+function createSplashWindow() {
+  const win = new BrowserWindow({
+    width: 400,
+    height: 200,
+    frame: false,
+    transparent: true,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      worldSafeExecuteJavaScript: true,
+    },
+  });
+
+  // load html file
+  win.loadFile("splash.html");
+
+  return win;
 }
 
 // Auto reload in DEVELOPMENT mode
 if (isDev) {
   require("electron-reload")(__dirname, {
-    electron: path.join(__dirname, "node_modules", ".bin", "electron"),
+    electron: resolve(__dirname, "node_modules", ".bin", "electron"),
   });
 }
+
+// Set icon for macOS
+if (process.platform === "darwin") {
+  app.dock.setIcon(dockIcon);
+}
+
+let tray = null;
 
 // when app is ready - execute our function
 // createWindow - for window creation
 app.whenReady().then(() => {
-  createWindow();
+  const template = require("./utils/Menu").createTemplate(app);
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+
+  tray = new Tray(trayIcon);
+  tray.setContextMenu(menu);
+
+  const mainApp = createWindow();
+  const splash = createSplashWindow();
+
+  mainApp.once("ready-to-show", () => {
+    splash.destroy();
+    mainApp.show();
+  });
 
   // ----------------------------
   // console.log is working here ONLY in terminal

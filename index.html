@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <!-- protect app from another scripts -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' https://*.firebaseio.com"
+    />
     <!-- app can execute another scripts -->
     <!-- <meta
       http-equiv="Content-Security-Policy"
@@ -12,7 +15,7 @@
     <title>Electron Chat</title>
   </head>
   <body>
-    <div id="electronChat"></div>
+    <div id="chatApp"></div>
   </body>
   <script src="./build/js/app.js"></script>
 </html>
